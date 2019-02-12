@@ -6,6 +6,10 @@ public class Paper {
     private final int height;
     private char[][] grid;
 
+    public Paper(){
+        this(10, 10);
+    }
+
     public Paper(int width, int height){
         assert (width >= 0 && height >= 0);
         this.width = width;
@@ -28,7 +32,7 @@ public class Paper {
     }
 
     public boolean withinBounds(int x, int y){
-        return (x < width && y < height);
+        return (x < width && y < height && x >= 0 && y >= 0);
     }
 
     public void mark(int x, int y, char c){
@@ -45,6 +49,7 @@ public class Paper {
             }
             answer += "\n";
         }
+        answer += "\n";
         return answer;
     }
 }

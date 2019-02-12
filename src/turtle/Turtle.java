@@ -12,9 +12,9 @@ public class Turtle {
     private Paper paper;
     private char brush;
 
-    public Turtle(Paper paper){
-        this.x = 0;
-        this.y = 0;
+    public Turtle(Paper paper, int x, int y){
+        this.x = x;
+        this.y = y;
         this.direction = Direction.NORTH;
         this.penState = Pen.UP;
         this.paper = paper;
@@ -22,11 +22,11 @@ public class Turtle {
     }
 
     public void liftPen(){
-        if (penState == Pen.UP) {
-            penState = Pen.DOWN;
-        } else {
-            penState = Pen.UP;
-        }
+        penState = Pen.UP;
+    }
+
+    public void dropPen(){
+        penState = Pen.DOWN;
     }
 
     public void changeBrush(char c){
@@ -35,7 +35,7 @@ public class Turtle {
 
     public void rotate(Rotation rotation, int n){
         for (int i = 0; i < n; i++){
-            direction.rotate(rotation);
+            direction = direction.rotate(rotation);
         }
     }
 
