@@ -1,5 +1,9 @@
 package turtle;
 
+import turtle.implementations.BouncyTurtle;
+import turtle.implementations.ContinuousTurtle;
+import turtle.implementations.NormalTurtle;
+import turtle.implementations.WrappingTurtle;
 import turtle.util.Rotation;
 
 import java.io.PrintStream;
@@ -13,6 +17,7 @@ public class TurtleInterpreter {
     private Scanner input;
     private PrintStream output;
     private Paper paper;
+
 
     public TurtleInterpreter(Scanner input, PrintStream output){
         this.input = input;
@@ -54,14 +59,23 @@ public class TurtleInterpreter {
         int width = input.nextInt();
         int height = input.nextInt();
         paper = new Paper(width, height);
+        turtles.clear();
     }
 
     private void newTurtle(){
-        input.next();
+        String type = input.next();
         String name = input.next();
         int x = input.nextInt();
         int y = input.nextInt();
-        turtles.put(name, new Turtle(paper, x, y));
+        Turtle turtle = new NormalTurtle(paper, x, y);
+        if (type.equals("bouncy")) {
+            turtle = new BouncyTurtle(paper, x, y);
+        } else if (type.equals("continuous")) {
+            turtle = new ContinuousTurtle(paper, x, y);
+        } else if (type.equals("wrapping")) {
+            turtle = new WrappingTurtle(paper, x ,y);
+        }
+        turtles.put(name, turtle);
     }
 
     private void changePen(){
