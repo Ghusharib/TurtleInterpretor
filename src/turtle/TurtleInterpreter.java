@@ -4,6 +4,7 @@ import turtle.implementations.*;
 import turtle.util.Rotation;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -77,7 +78,7 @@ public class TurtleInterpreter {
         } else if (type.equals("reflecting")) {
             turtle = new ReflectingTurtle(paper, x, y);
         } else if (type.equals("cluster")) {
-            turtle = new ClusterTurtle(paper);
+            turtle = new ClusterTurtle(new ArrayList<Turtle>());
             int size = input.nextInt();
             for(int i = 0; i < size; i++){
                 if(!input.next().equals("new")){

@@ -9,7 +9,8 @@ public class ClusterTurtle implements Turtle {
 
     private ArrayList<Turtle> cluster = new ArrayList<>();
 
-    public ClusterTurtle(){
+    public ClusterTurtle(ArrayList<Turtle> cluster){
+        this.cluster = cluster;
     }
 
     public void liftPen(){
