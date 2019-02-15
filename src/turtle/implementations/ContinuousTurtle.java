@@ -9,8 +9,8 @@ public class ContinuousTurtle extends AbstractTurtle{
     }
 
     public void move(int n){
-        int dir = direction.ordinal(); //stores the num value of the direction
         for (int i = 0; i < n; i++){
+            int dir = direction.ordinal(); //stores the num value of the direction
             if(dir == 0 || dir == 1 || dir == 8){
                 y++;
             }

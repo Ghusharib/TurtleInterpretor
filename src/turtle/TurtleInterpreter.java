@@ -1,9 +1,6 @@
 package turtle;
 
-import turtle.implementations.BouncyTurtle;
-import turtle.implementations.ContinuousTurtle;
-import turtle.implementations.NormalTurtle;
-import turtle.implementations.WrappingTurtle;
+import turtle.implementations.*;
 import turtle.util.Rotation;
 
 import java.io.PrintStream;
@@ -34,7 +31,7 @@ public class TurtleInterpreter {
                     newPaper();
                     break;
                 case "new":
-                    newTurtle();
+                    newTurtle("");
                     break;
                 case "pen":
                     changePen();
@@ -62,11 +59,14 @@ public class TurtleInterpreter {
         turtles.clear();
     }
 
-    private void newTurtle(){
+    private Turtle newTurtle(String prefix){
         String type = input.next();
-        String name = input.next();
-        int x = input.nextInt();
-        int y = input.nextInt();
+        String name = prefix + input.next();
+        int x = 0, y = 0;
+        if(!type.equals("cluster")){
+            x = input.nextInt();
+            y = input.nextInt();
+        }
         Turtle turtle = new NormalTurtle(paper, x, y);
         if (type.equals("bouncy")) {
             turtle = new BouncyTurtle(paper, x, y);
@@ -74,8 +74,20 @@ public class TurtleInterpreter {
             turtle = new ContinuousTurtle(paper, x, y);
         } else if (type.equals("wrapping")) {
             turtle = new WrappingTurtle(paper, x ,y);
+        } else if (type.equals("reflecting")) {
+            turtle = new ReflectingTurtle(paper, x, y);
+        } else if (type.equals("cluster")) {
+            turtle = new ClusterTurtle(paper);
+            int size = input.nextInt();
+            for(int i = 0; i < size; i++){
+                if(!input.next().equals("new")){
+                    throw new RuntimeException("Error: invalid command for cluster");
+                }
+                ((ClusterTurtle) turtle).addTurtle(newTurtle(name + "."));
+            }
         }
         turtles.put(name, turtle);
+        return turtle;
     }
 
     private void changePen(){
